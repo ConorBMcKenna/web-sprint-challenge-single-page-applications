@@ -8,7 +8,7 @@ const Order = (props) => {
     return (
         <section>
             <h2>My Order</h2>
-            {
+            {/* {
                 myState.map((order) =>(
                     <article>
                        <h3> 
@@ -24,7 +24,7 @@ const Order = (props) => {
                         <p>{order.special}</p>
                     </article>
                 ))
-            }
+            } */}
         </section>
     )
 }

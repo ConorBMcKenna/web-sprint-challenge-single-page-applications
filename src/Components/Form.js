@@ -20,7 +20,7 @@ const Form = (props) => {
 
     const formSchema = yup.object().shape({
         name: yup.string().min(2, "name must be at least 2 characters"),
-        size: yup.string().min(2, "Please Choose a Size"),
+        size: yup.string,
         sauce: yup.string().min(2, "Please Choose a Sauce"),
         topping1: yup.boolean().oneOf([true], "Please Choose an Option"),
         topping2: yup.boolean().oneOf([true], "Please Choose an Option"),
@@ -31,7 +31,7 @@ const Form = (props) => {
 
 
     const history = useHistory ()
-    console.log(history)
+    
 
     const [form, setForm] = useState(initialFormValues)
     const [disabled, setDisabled] = useState(true)
@@ -39,10 +39,10 @@ const Form = (props) => {
         name: "",
         size: "",
         sauce: "",
-        topping1: false,
-        topping2: false,
-        topping3: false,
-        topping4: false,
+        topping1: "",
+        topping2: "",
+        topping3: "",
+        topping4: "",
     })
 
     const validateChange = (key, value) => {
@@ -56,23 +56,20 @@ const Form = (props) => {
         })
     }
 
-    const changeHandler = (e) => {
+    function changeHandler(e) {
         // console.log(e)
-        const {name, type, checked} = e.target
-        const value = type === "checkbox" ? checked : e.target.value
+        const { name, type, checked } = e.target;
+        const value = type === "checkbox" ? checked : e.target.value;
         // console.log(name,value, type)
-        validateChange(name, value)
+        validateChange(name, value);
 
-        setForm({...form, [name]: value})
+        setForm({ ...form, [name]: value });
     }
 
     const submitHandler = (e) => {
-        e.preventDefault()
         axios.post('https://reqres.in/api/orders', form)
             .then(res => {
-                props.addToMyState(res.data)
-                setForm(initialFormValues)
-                history.push('/pizza')
+                console.log(e)
             })
         
 
@@ -99,10 +96,8 @@ const Form = (props) => {
                     <div>{errors.name}</div>
                     <label>
                         Size 
-                        <input name="size" 
-                        value={form.size}
-                        onChange={changeHandler} 
-                        />
+                        <select value={form.size} name="size"  onChange={changeHandler}/>
+                       
                         <option value="" >--Select One--</option>
                         <option value="1">--Small--</option>
                         <option value="2">--Medium--</option>
@@ -151,7 +146,7 @@ const Form = (props) => {
                         name="special" 
                         type = "text" />
                     </label>
-                    <button type='submit'>Place Your Order!</button>
+                    <button type='submit' disabled={disabled}>Place Your Order!</button>
             </form>
                 
         </section>
