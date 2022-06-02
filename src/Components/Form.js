@@ -72,7 +72,7 @@ const Form = (props) => {
             .then(res => {
                 props.addToMyState(res.data)
                 setForm(initialFormValues)
-                history.push('/orders')
+                history.push('/pizza')
             })
         
 
@@ -88,18 +88,25 @@ const Form = (props) => {
     return (
         <section>
             <h2>Build Your Own Pizza</h2>
-                <form data-style="form" onSubmit={submitHandler} >
+                <form data-style="form" id='pizza-form' onSubmit={submitHandler} >
                     <label>
                         Name {errors.name}
                         <input onChange={changeHandler} 
-                        name="orderName" 
-                        value={form.orderName}type = "text" />
+                        id= "name-input"
+                        name="name" 
+                        value={form.name}type = "text" />
                     </label>
+                    <div>{errors.name}</div>
                     <label>
                         Size 
-                        <input onChange={changeHandler} 
-                        name="size" 
-                        type = "dropdown" />
+                        <input name="size" 
+                        value={form.size}
+                        onChange={changeHandler} 
+                        />
+                        <option value="" >--Select One--</option>
+                        <option value="1">--Small--</option>
+                        <option value="2">--Medium--</option>
+                        <option value="3">--Large--</option>
                     </label>
                     <label>
                         Sauce 
@@ -140,6 +147,7 @@ const Form = (props) => {
                     <label>
                         Special
                         <input onChange={changeHandler} 
+                        id="special-text"
                         name="special" 
                         type = "text" />
                     </label>

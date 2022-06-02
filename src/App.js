@@ -42,6 +42,7 @@ const App = () => {
           <Switch>
             <Route exact path = "/">
               <Link to = "/pizza">#order-pizza</Link>
+              <Link to = "/pizza" id= 'order-pizza'>#order-pizza</Link>
             </Route>
           </Switch>
           <Switch>
